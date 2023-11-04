@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour
     private int desiredLane = 1;
     public float laneDistance = 4;
 
+    public float jumpForce;
+    
+    public float Gravity = -20;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +26,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         direction.z = forwardSpeed;
+
+       
+        if (controller.isGrounded)
+        {
+            //direction.y = 0; P4 4'20
+            if(Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                Jump();
+            }
+        } else
+        {
+             direction.y += Gravity * Time.deltaTime;
+        }
+
+        
 
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -53,5 +73,10 @@ public class PlayerController : MonoBehaviour
         {
             controller.Move(direction * Time.fixedDeltaTime);
         }
+
+    private void Jump()
+    {
+        direction.y = jumpForce;
+    }
     
 }
