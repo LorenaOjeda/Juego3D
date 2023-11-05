@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = targetPosition; // p2 7:57
+        controller.center = controller.center; // p8 16'
     }
 
     private void FixedUpdate()
@@ -79,4 +80,11 @@ public class PlayerController : MonoBehaviour
         direction.y = jumpForce;
     }
     
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.transform.tag=="Obstacle")
+        {
+            PlayerManager.gameOver = true;
+        }
+    }
 }
